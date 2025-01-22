@@ -1,12 +1,13 @@
 # MnDOT App Setup Guide
 
-This guide explains how to configure and run the MnDOT App using Laravel Sail. Follow these steps to ensure everything is set up properly for easy deployment and usage.
+This guide explains how to configure and run the MnDOT App.
 
 ---
 
 ## Prerequisite
 
 - Docker must be installed and running.
+- The application should be run on macOS, Linux, or Windows Subsystem for Linux (WSL2).
 
 ---
 
@@ -17,8 +18,8 @@ This guide explains how to configure and run the MnDOT App using Laravel Sail. F
 Run the following command to clone the repository and navigate to the project directory:
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/ayenewdemeke/mndot-app.git mndot-app
+cd mndot-app
 ```
 
 ### 2. Configure the Environment File
@@ -29,15 +30,10 @@ Create a `.env` file by copying the example file:
 cp .env.example .env
 ```
 
-Ensure the `.env` file has the correct settings for the application. For example:
+Generate the application key:
 
-```dotenv
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=sail
-DB_PASSWORD=password
+```bash
+./vendor/bin/sail artisan key:generate
 ```
 
 ### 3. Install Dependencies
@@ -48,7 +44,14 @@ Install the necessary dependencies:
 composer install
 ```
 
-### 4. Start the Application
+### 4. Build Frontend Assets
+
+```bash
+npm install
+npm run build
+```
+
+### 5. Start the Application
 
 Start the Docker containers:
 
@@ -56,15 +59,19 @@ Start the Docker containers:
 ./vendor/bin/sail up
 ```
 
-Once the containers are up and running, the application will be accessible at [http://localhost](http://localhost).
-
-### 5. Run Database Migrations
+### 6. Run Database Migrations
 
 Run the following command to set up the required database tables:
 
 ```bash
 ./vendor/bin/sail artisan migrate
 ```
+
+Once the containers are up and running, the application will be accessible at [http://localhost](http://localhost).
+
+### 7. Access the Database
+
+The database can be accessed using a tool like MySQL Workbench by using database credentials provided in .env file.
 
 ---
 
