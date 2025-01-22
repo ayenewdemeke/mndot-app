@@ -40,7 +40,7 @@ docker run --rm \
     composer install
 ```
 
-### 5. Start the Application
+### 3. Start the Application
 
 Start the Docker containers:
 
@@ -48,7 +48,7 @@ Start the Docker containers:
 ./vendor/bin/sail up
 ```
 
-### 3. Configure the Environment File
+### 4. Configure the Environment File
 
 Generate the application key:
 
@@ -56,7 +56,7 @@ Generate the application key:
 ./vendor/bin/sail artisan key:generate
 ```
 
-### 4. Build Frontend Assets
+### 5. Build Frontend Assets
 
 ```bash
 ./vendor/bin/sail npm install
