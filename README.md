@@ -22,33 +22,22 @@ git clone https://github.com/ayenewdemeke/mndot-app.git mndot-app
 cd mndot-app
 ```
 
-### 2. Configure the Environment File
-
 Create a `.env` file by copying the example file:
 
 ```bash
 cp .env.example .env
 ```
 
-Generate the application key:
-
-```bash
-./vendor/bin/sail artisan key:generate
-```
-
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 Install the necessary dependencies:
 
 ```bash
-composer install
-```
-
-### 4. Build Frontend Assets
-
-```bash
-npm install
-npm run build
+docker run --rm \
+    -v $(pwd):/var/www/html \
+    -w /var/www/html \
+    laravelsail/php83-composer:latest \
+    composer install
 ```
 
 ### 5. Start the Application
@@ -59,12 +48,27 @@ Start the Docker containers:
 ./vendor/bin/sail up
 ```
 
+### 3. Configure the Environment File
+
+Generate the application key:
+
+```bash
+./vendor/bin/sail artisan key:generate
+```
+
+### 4. Build Frontend Assets
+
+```bash
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
+```
+
 ### 6. Run Database Migrations
 
 Run the following command to set up the required database tables:
 
 ```bash
-./vendor/bin/sail artisan migrate
+./vendor/bin/sail artisan migrate:fresh --seed
 ```
 
 Once the containers are up and running, the application will be accessible at [http://localhost](http://localhost).
